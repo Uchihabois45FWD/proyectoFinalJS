@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solicitud de Permiso</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="dashboard-header">
+            <h1>Solicitud de Permiso para Computadora</h1>
+            <button id="logoutBtn" class="btn btn-danger">Cerrar Sesión</button>
+        </div>
+
+        <form id="requestForm">
+            <div class="form-group">
+                <label for="userName">Nombre del Estudiante:</label>
+                <input type="text" id="userName" readonly>
+            </div>
+
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="sede">Sede:</label>
+                    <select id="sede" required>
+                        <option value="">Seleccionar sede</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="codigoComputadora">Código de Computadora:</label>
+                    <input type="text" id="codigoComputadora" required placeholder="Ej: PC-001">
+                </div>
+
+                <div class="form-group">
+                    <label for="fechaSalida">Fecha de Salida:</label>
+                    <input type="date" id="fechaSalida" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="fechaRegreso">Fecha de Regreso:</label>
+                    <input type="date" id="fechaRegreso" required>
+                </div>
+            </div>
+
+            <div class="conditions">
+                <label>
+                    <input type="checkbox" id="aceptoCondiciones" required>
+                    Acepto las condiciones de uso:
+                </label>
+                <ul>
+                    <li>Resguardar el equipo en transporte público</li>
+                    <li>Procuro ir acompañado cuando llevo el equipo</li>
+                    <li>Proteger el equipo en días lluviosos</li>
+                    <li>Usar el equipo solo para fines académicos</li>
+                    <li>Acepto la revisión del equipo antes y después</li>
+                </ul>
+            </div>
+
+            <div class="form-group">
+                <label for="firma">Firma Digital (opcional):</label>
+                <input type="text" id="firma" placeholder="Escribe tu nombre como firma">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Enviar Solicitud</button>
+            <div id="message" class="success-message"></div>
+        </form>
+    </div>
+
+    <script type="module" src="../js/dashboard.js"></script>
+</body>
+</html>

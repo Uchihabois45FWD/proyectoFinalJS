@@ -1,0 +1,73 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "admin",
+      "password": "admin123",
+      "name": "Administrador Principal",
+      "email": "admin@escuela.com",
+      "role": "admin"
+    },
+    {
+      "id": 2,
+      "username": "estudiante1",
+      "password": "estudiante123",
+      "name": "Juan Pérez",
+      "email": "juan@escuela.com",
+      "role": "student"
+    },
+    {
+      "id": 3,
+      "username": "estudiante2",
+      "password": "estudiante123",
+      "name": "María García",
+      "email": "maria@escuela.com",
+      "role": "student"
+    }
+  ],
+  "requests": [
+    {
+      "id": 1,
+      "userId": 2,
+      "userName": "Juan Pérez",
+      "sede": "Sede Central",
+      "fechaSalida": "2023-11-15",
+      "fechaRegreso": "2023-11-17",
+      "codigoComputadora": "PC-001",
+      "aceptoCondiciones": true,
+      "firma": "",
+      "estado": "aprobado",
+      "fechaSolicitud": "2023-11-14T10:30:00Z"
+    },
+    {
+      "id": 2,
+      "userId": 3,
+      "userName": "María García",
+      "sede": "Sede Norte",
+      "fechaSalida": "2023-11-18",
+      "fechaRegreso": "2023-11-20",
+      "codigoComputadora": "PC-002",
+      "aceptoCondiciones": true,
+      "firma": "",
+      "estado": "pendiente",
+      "fechaSolicitud": "2023-11-14T14:45:00Z"
+    },
+    {
+      "id": "b6b0",
+      "sede": "Sede Norte",
+      "fechaSalida": "2025-08-27",
+      "fechaRegreso": "2025-08-29",
+      "codigoComputadora": "PC-001",
+      "aceptoCondiciones": true,
+      "firma": "",
+      "userId": 2,
+      "userName": "Juan Pérez",
+      "estado": "pendiente",
+      "fechaSolicitud": "2025-08-27T17:50:43.722Z"
+    }
+  ],
+  "sedes": [
+    "Sede La Capri",
+    "Sede Puntarenas"
+  ]
+}
