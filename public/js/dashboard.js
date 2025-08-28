@@ -35,6 +35,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 async function loadSedes() {
     try {
         const sedes = await requests.getSedes();
+        console.log(sedes);
         const sedeSelect = document.getElementById('sede');
         
         sedes.forEach(sede => {
