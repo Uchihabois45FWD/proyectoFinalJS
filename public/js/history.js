@@ -6,13 +6,15 @@ if (!auth.isAuthenticated()) {
     window.location.href = 'index.html';
 }
 
+let allRequests = []; // Variable para almacenar todas las solicitudes
+
 document.addEventListener('DOMContentLoaded', async function() {
     // Cargar todas las solicitudes
     await loadAllRequests();
     
     // Configurar búsqueda
-    document.getElementById('searchInput').addEventListener('input', async function(e) {
-        await searchRequests(e.target.value);
+    document.getElementById('searchInput').addEventListener('input', function(e) {
+        filterRequests(e.target.value);
     });
     
     // Configurar botones
@@ -32,24 +34,38 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
 });
 
-async function loadAllRequests(searchTerm = '') {
+async function loadAllRequests() {
     try {
-        let requestsList;
-        
-        if (searchTerm) {
-            requestsList = await searchRequests(searchTerm);
-        } else if (auth.isAdmin()) {
-            requestsList = await requests.getAllRequests();
+        if (auth.isAdmin()) {
+            allRequests = await requests.getAllRequests();
         } else {
-            requestsList = await requests.getUserRequests();
+            allRequests = await requests.getUserRequests();
         }
         
-        displayRequests(requestsList);
+        displayRequests(allRequests);
     } catch (error) {
         console.error('Error cargando solicitudes:', error);
+        document.getElementById('requestsList').innerHTML = '<p>Error cargando las solicitudes</p>';
     }
 }
 
+function filterRequests(searchTerm) {
+    if (!searchTerm.trim()) {
+        displayRequests(allRequests);
+        return;
+    }
+    
+    const filtered = allRequests.filter(request => 
+        request.userName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        request.codigoComputadora.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        request.estado.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        request.sede.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        request.fechaSalida.includes(searchTerm) ||
+        request.fechaRegreso.includes(searchTerm)
+    );
+    
+    displayRequests(filtered);
+}
 
 function displayRequests(requestsList) {
     const container = document.getElementById('requestsList');
@@ -74,12 +90,15 @@ function displayRequests(requestsList) {
         </div>
     `).join('');
     
-    // Añadir estilos para los estados
-    const style = document.createElement('style');
-    style.textContent = `
-        .estado-aprobado { color: #27ae60; font-weight: bold; }
-        .estado-rechazado { color: #e74c3c; font-weight: bold; }
-        .estado-pendiente { color: #f39c12; font-weight: bold; }
-    `;
-    document.head.appendChild(style);
+    // Añadir estilos para los estados si no existen
+    if (!document.getElementById('estado-styles')) {
+        const style = document.createElement('style');
+        style.id = 'estado-styles';
+        style.textContent = `
+            .estado-aprobado { color: #27ae60; font-weight: bold; }
+            .estado-rechazado { color: #e74c3c; font-weight: bold; }
+            .estado-pendiente { color: #f39c12; font-weight: bold; }
+        `;
+        document.head.appendChild(style);
+    }
 }

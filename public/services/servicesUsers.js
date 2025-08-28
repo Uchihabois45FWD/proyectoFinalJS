@@ -1,4 +1,4 @@
-const API_BASE = 'http://localhost:3001';
+const API_BASE = 'http://localhost:3000/api';
 
 // Función genérica para hacer peticiones HTTP
 async function fetchAPI(endpoint, options = {}) {
@@ -15,7 +15,12 @@ async function fetchAPI(endpoint, options = {}) {
             throw new Error(`Error ${response.status}: ${response.statusText}`);
         }
         
-        return await response.json();
+        // Verificar si hay contenido para parsear
+        const contentType = response.headers.get('content-type');
+        if (contentType && contentType.includes('application/json')) {
+            return await response.json();
+        }
+        return null;
     } catch (error) {
         console.error('Error en la petición API:', error);
         throw error;
@@ -59,7 +64,10 @@ export const requestsAPI = {
 
 // CRUD para sedes
 export const sedesAPI = {
-    getAll: () => fetchAPI('/sedes')
+    getAll: async () => {
+        const sedes = await fetchAPI('/sedes');
+        return sedes.map(sede => sede.nombre); // Retornar solo los nombres
+    }
 };
 
 // Estadísticas con reduce
