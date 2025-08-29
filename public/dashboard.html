@@ -4,32 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Solicitud de Permiso</title>
-    <link rel="stylesheet" href="./estilos/dashboard.css">
 </head>
 <body>
+    <button id="logoutBtn" class="btn btn-danger logout-outside">Cerrar Sesión</button>
     <div class="dashboard-container">
         <div class="dashboard-header">
             <h1>Solicitud de Permiso para Computadora</h1>
-            <div>
-                <span id="userWelcome">Bienvenido, </span>
-                <button id="editNameBtn" class="btn btn-secondary">Editar Nombre</button>
-                <button id="logoutBtn" class="btn btn-danger">Cerrar Sesión</button>
-            </div>
-        </div>
-
-        <!-- Modal para editar nombre -->
-        <div id="editNameModal" class="modal">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <h2>Editar Nombre</h2>
-                <form id="editNameForm">
-                    <div class="form-group">
-                        <label for="newName">Nuevo nombre:</label>
-                        <input type="text" id="newName" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Guardar</button>
-                </form>
-            </div>
+            <button id="logoutBtn" class="btn btn-danger">Cerrar Sesión</button>
         </div>
 
         <form id="requestForm">
