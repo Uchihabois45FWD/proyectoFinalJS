@@ -1,7 +1,7 @@
 {
   "users": [
     {
-      "id": 1,
+      "id": "1",
       "username": "admin",
       "password": "admin123",
       "name": "Administrador Principal",
@@ -9,17 +9,16 @@
       "role": "admin"
     },
     {
-      "id": 2,
+      "id": "2",
       "username": "estudiante1",
-      "password": "estudiante123",
-      "name": "Juan Pérez",
+      "name": "Adrian Campos Cisneros",
       "email": "juan@escuela.com",
       "role": "student"
     }
   ],
   "requests": [
     {
-      "id": 1,
+      "id": "1",
       "userId": 2,
       "userName": "Juan Pérez",
       "sede": "Sede La Capri",
@@ -30,15 +29,41 @@
       "firma": "",
       "estado": "aprobado",
       "fechaSolicitud": "2023-11-14T10:30:00Z"
+    },
+    {
+      "id": "3d57",
+      "sede": "Sede Puntarenas",
+      "fechaSalida": "2025-08-29",
+      "fechaRegreso": "2025-08-29",
+      "codigoComputadora": "pc-29",
+      "aceptoCondiciones": true,
+      "firma": "",
+      "userId": "2",
+      "userName": "Pepe",
+      "estado": "rechazado",
+      "fechaSolicitud": "2025-08-29T16:03:40.787Z"
+    },
+    {
+      "id": "7ec9",
+      "sede": "Sede La Capri",
+      "fechaSalida": "2025-08-29",
+      "fechaRegreso": "2025-09-06",
+      "codigoComputadora": "pc-699",
+      "aceptoCondiciones": true,
+      "firma": "",
+      "userId": "2",
+      "userName": "Adrian Campos Cisneros",
+      "estado": "aprobado",
+      "fechaSolicitud": "2025-08-29T16:06:06.808Z"
     }
   ],
   "sedes": [
     {
-      "id": 1,
+      "id": "1",
       "nombre": "Sede La Capri"
     },
     {
-      "id": 2,
+      "id": "2",
       "nombre": "Sede Puntarenas"
     }
   ]
