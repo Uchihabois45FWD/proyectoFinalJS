@@ -35,10 +35,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         adminBtn.style.display = 'none';
     }
     
-    // Botón para recargar solicitudes
-    document.getElementById('reloadBtn').addEventListener('click', async function() {
-        await loadAllRequests();
-    });
+
 });
 
 async function loadAllRequests(searchTerm = '') {
@@ -125,7 +122,7 @@ async function deleteRequest(requestId) {
     }
 }
 
-// Función para mostrar mensajes (si no la tienes)
+// Función para mostrar mensajes con animación
 function showMessage(text, type) {
     // Crea un elemento para mostrar mensajes o usa uno existente
     const messageDiv = document.getElementById('message') || createMessageElement();
@@ -133,8 +130,17 @@ function showMessage(text, type) {
     messageDiv.className = `message ${type}-message`;
     messageDiv.style.display = 'block';
     
+    // Activar animación después de un pequeño delay
     setTimeout(() => {
-        messageDiv.style.display = 'none';
+        messageDiv.classList.add('show');
+    }, 100);
+    
+    // Ocultar mensaje después de 3 segundos
+    setTimeout(() => {
+        messageDiv.classList.remove('show');
+        setTimeout(() => {
+            messageDiv.style.display = 'none';
+        }, 300);
     }, 3000);
 }
 
