@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Historial de Solicitudes</title>
-    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
     <div class="dashboard-container">
         <div class="dashboard-header">
             <h1>Historial de Solicitudes</h1>
             <div>
-                <button id="adminBtn" class="btn btn-primary">Panel Admin</button>
+                <button id="reloadBtn" class="btn btn-secondary">🔄 Actualizar</button>
+                <button id="adminBtn" class="btn btn-primary" style="display: none;">Panel Admin</button>
                 <button id="logoutBtn" class="btn btn-danger">Cerrar Sesión</button>
             </div>
         </div>
@@ -25,6 +25,6 @@
         </div>
     </div>
 
-    <script type="module" src="../js/history.js"></script>
+    <script type="module" src="/js/history.js"></script>
 </body>
 </html>

@@ -31,20 +31,21 @@ async function loadPendingRequests() {
         }
         
         container.innerHTML = pendingRequests.map(request => `
-            <div class="request-item">
-                <div class="request-info">
-                    <h3>${request.userName}</h3>
-                    <p><strong>Sede:</strong> ${request.sede}</p>
-                    <p><strong>Computadora:</strong> ${request.codigoComputadora}</p>
-                    <p><strong>Salida:</strong> ${request.fechaSalida}</p>
-                    <p><strong>Regreso:</strong> ${request.fechaRegreso}</p>
-                </div>
-                <div class="request-actions">
-                    <button class="btn btn-success" onclick="approveRequest(${request.id})">Aprobar</button>
-                    <button class="btn btn-danger" onclick="rejectRequest(${request.id})">Rechazar</button>
-                </div>
-            </div>
-        `).join('');
+    <div class="request-item">
+        <div class="request-info">
+            <h3>${request.userName}</h3>
+            <p><strong>Sede:</strong> ${request.sede}</p>
+            <p><strong>Computadora:</strong> ${request.codigoComputadora}</p>
+            <p><strong>Salida:</strong> ${request.fechaSalida}</p>
+            <p><strong>Regreso:</strong> ${request.fechaRegreso}</p>
+        </div>
+        <div class="request-actions">
+            <button class="btn btn-success" onclick="approveRequest('${request.id}')">Aprobar</button>
+            <button class="btn btn-danger" onclick="rejectRequest('${request.id}')">Rechazar</button>
+        </div>
+    </div>
+`).join('');
+
         
     } catch (error) {
         console.error('Error cargando solicitudes:', error);

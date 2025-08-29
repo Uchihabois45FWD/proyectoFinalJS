@@ -1,14 +1,35 @@
 <!DOCTYPE html>
 <html lang="es">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Solicitud de Permiso</title>
+    <link rel="stylesheet" href="./estilos/dashboard.css">
 </head>
 <body>
     <div class="dashboard-container">
         <div class="dashboard-header">
             <h1>Solicitud de Permiso para Computadora</h1>
-            <button id="logoutBtn" class="btn btn-danger">Cerrar Sesión</button>
+            <div>
+                <span id="userWelcome">Bienvenido, </span>
+                <button id="editNameBtn" class="btn btn-secondary">Editar Nombre</button>
+                <button id="logoutBtn" class="btn btn-danger">Cerrar Sesión</button>
+            </div>
+        </div>
+
+        <!-- Modal para editar nombre -->
+        <div id="editNameModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Editar Nombre</h2>
+                <form id="editNameForm">
+                    <div class="form-group">
+                        <label for="newName">Nuevo nombre:</label>
+                        <input type="text" id="newName" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </form>
+            </div>
         </div>
 
         <form id="requestForm">
@@ -44,7 +65,7 @@
             <div class="conditions">
                 <label>
                     <input type="checkbox" id="aceptoCondiciones" required>
-                    Acepto las condiciones de uso:
+                    Acepto las condiciones de uso
                 </label>
                 <ul>
                     <li>Resguardar el equipo en transporte público</li>
@@ -63,8 +84,14 @@
             <button type="submit" class="btn btn-primary">Enviar Solicitud</button>
             <div id="message" class="success-message"></div>
         </form>
+
+        <!-- Sección de solicitudes del usuario -->
+        <div class="user-requests">
+            <h2>Mis Solicitudes</h2>
+            <div id="userRequestsList"></div>
+        </div>
     </div>
 
-    <script type="module" src="../js/dashboard.js"></script>
+    <script type="module" src="./js/dashboard.js"></script>
 </body>
 </html>

@@ -15,12 +15,7 @@ async function fetchAPI(endpoint, options = {}) {
             throw new Error(`Error ${response.status}: ${response.statusText}`);
         }
         
-        // Verificar si hay contenido para parsear
-        const contentType = response.headers.get('content-type');
-        if (contentType && contentType.includes('application/json')) {
-            return await response.json();
-        }
-        return null;
+        return await response.json();
     } catch (error) {
         console.error('Error en la petición API:', error);
         throw error;
@@ -34,7 +29,18 @@ export const usersAPI = {
     getByUsername: async (username) => {
         const users = await fetchAPI('/users');
         return users.find(user => user.username === username);
-    }
+    },
+    create: (userData) => fetchAPI('/users', {
+        method: 'POST',
+        body: JSON.stringify(userData)
+    }),
+    update: (id, userData) => fetchAPI(`/users/${id}`, {
+        method: 'PATCH',
+        body: JSON.stringify(userData)
+    }),
+    delete: (id) => fetchAPI(`/users/${id}`, {
+        method: 'DELETE'
+    })
 };
 
 // CRUD para solicitudes
@@ -54,7 +60,7 @@ export const requestsAPI = {
         body: JSON.stringify(request)
     }),
     update: (id, updates) => fetchAPI(`/requests/${id}`, {
-        method: 'PUT',
+        method: 'PATCH',
         body: JSON.stringify(updates)
     }),
     delete: (id) => fetchAPI(`/requests/${id}`, {
@@ -62,28 +68,41 @@ export const requestsAPI = {
     })
 };
 
-// CRUD para sedes
+// CRUD para sedes - ESPECIALMENTE MODIFICADO PARA 2 SEDES
 export const sedesAPI = {
     getAll: async () => {
-        const sedes = await fetchAPI('/sedes');
-        return sedes.map(sede => sede.nombre); // Retornar solo los nombres
-    }
+        try {
+            const sedes = await fetchAPI('/sedes');
+            // Extraer solo los nombres de las sedes
+            return sedes.map(sede => sede.nombre);
+        } catch (error) {
+            console.error('Error cargando sedes:', error);
+            // Fallback con solo las dos sedes requeridas
+            return ["Sede La Capri", "Sede Puntarenas"];
+        }
+    },
+    getById: (id) => fetchAPI(`/sedes/${id}`),
+    create: (sede) => fetchAPI('/sedes', {
+        method: 'POST',
+        body: JSON.stringify(sede)
+    }),
+    update: (id, sede) => fetchAPI(`/sedes/${id}`, {
+        method: 'PUT',
+        body: JSON.stringify(sede)
+    }),
+    delete: (id) => fetchAPI(`/sedes/${id}`, {
+        method: 'DELETE'
+    })
 };
 
-// Estadísticas con reduce
-export const getStats = async () => {
+// Función para buscar solicitudes
+export const searchRequests = async (searchTerm) => {
     const requests = await requestsAPI.getAll();
-    
-    return requests.reduce((stats, request) => {
-        // Total por estado
-        stats[request.estado] = (stats[request.estado] || 0) + 1;
-        
-        // Total por usuario
-        stats.usuarios[request.userId] = (stats.usuarios[request.userId] || 0) + 1;
-        
-        // Total general
-        stats.total++;
-        
-        return stats;
-    }, { total: 0, usuarios: {} });
+    return requests.filter(request => 
+        request.userName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        request.codigoComputadora.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        request.estado.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        request.fechaSalida.includes(searchTerm) ||
+        request.fechaRegreso.includes(searchTerm)
+    );
 };
