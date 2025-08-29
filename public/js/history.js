@@ -1,23 +1,25 @@
 import { auth } from '../js/auth.js';
-import { requests, searchRequests } from '../js/request.js';
+import { requests } from '../js/request.js';
+import { searchRequests } from '../js/request.js';
 
 // Verificar autenticación
 if (!auth.isAuthenticated()) {
-    window.location.href = 'index.html';
+    window.location.href = '/';
 }
 
-let allRequests = []; // Variable para almacenar todas las solicitudes
+// Variable para almacenar todas las solicitudes
+let allRequests = [];
 
 document.addEventListener('DOMContentLoaded', async function() {
     // Cargar todas las solicitudes
     await loadAllRequests();
     
     // Configurar búsqueda
-    document.getElementById('searchInput').addEventListener('input', function(e) {
-        filterRequests(e.target.value);
+    document.getElementById('searchInput').addEventListener('input', async function(e) {
+        await handleSearch(e.target.value);
     });
     
-    // Configurar botones
+    // Configurar logout
     document.getElementById('logoutBtn').addEventListener('click', function() {
         auth.logout();
     });
@@ -27,14 +29,19 @@ document.addEventListener('DOMContentLoaded', async function() {
     if (auth.isAdmin()) {
         adminBtn.style.display = 'block';
         adminBtn.addEventListener('click', function() {
-            window.location.href = 'admin.html';
+            window.location.href = '/admin.html';
         });
     } else {
         adminBtn.style.display = 'none';
     }
+    
+    // Botón para recargar solicitudes
+    document.getElementById('reloadBtn').addEventListener('click', async function() {
+        await loadAllRequests();
+    });
 });
 
-async function loadAllRequests() {
+async function loadAllRequests(searchTerm = '') {
     try {
         if (auth.isAdmin()) {
             allRequests = await requests.getAllRequests();
@@ -42,63 +49,57 @@ async function loadAllRequests() {
             allRequests = await requests.getUserRequests();
         }
         
-        displayRequests(allRequests);
+        await handleSearch(searchTerm);
     } catch (error) {
         console.error('Error cargando solicitudes:', error);
-        document.getElementById('requestsList').innerHTML = '<p>Error cargando las solicitudes</p>';
+        displayErrorMessage('Error al cargar las solicitudes');
     }
 }
 
-function filterRequests(searchTerm) {
-    if (!searchTerm.trim()) {
-        displayRequests(allRequests);
-        return;
+async function handleSearch(searchTerm) {
+    let filteredRequests = allRequests;
+    
+    if (searchTerm) {
+        filteredRequests = await searchRequests(searchTerm);
     }
     
-    const filtered = allRequests.filter(request => 
-        request.userName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        request.codigoComputadora.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        request.estado.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        request.sede.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        request.fechaSalida.includes(searchTerm) ||
-        request.fechaRegreso.includes(searchTerm)
-    );
-    
-    displayRequests(filtered);
+    displayRequests(filteredRequests);
 }
 
 function displayRequests(requestsList) {
     const container = document.getElementById('requestsList');
     
-    if (requestsList.length === 0) {
+    if (!requestsList || requestsList.length === 0) {
         container.innerHTML = '<p>No se encontraron solicitudes</p>';
         return;
     }
     
-    // Usar map para generar el HTML de cada solicitud
-    container.innerHTML = requestsList.map(request => `
+    // Ordenar solicitudes por fecha más reciente primero
+    const sortedRequests = requestsList.sort((a, b) => 
+        new Date(b.fechaSolicitud) - new Date(a.fechaSolicitud)
+    );
+    
+    container.innerHTML = sortedRequests.map(request => `
         <div class="request-item">
             <div class="request-info">
-                <h3>${request.userName}</h3>
-                <p><strong>Estado:</strong> <span class="estado-${request.estado}">${request.estado}</span></p>
-                <p><strong>Sede:</strong> ${request.sede}</p>
-                <p><strong>Computadora:</strong> ${request.codigoComputadora}</p>
-                <p><strong>Salida:</strong> ${request.fechaSalida}</p>
-                <p><strong>Regreso:</strong> ${request.fechaRegreso}</p>
-                <p><strong>Solicitado:</strong> ${new Date(request.fechaSolicitud).toLocaleDateString()}</p>
+                <h3>${request.userName || 'Usuario no disponible'}</h3>
+                <p><strong>Estado:</strong> <span class="estado-${request.estado || 'pendiente'}">${request.estado || 'Pendiente'}</span></p>
+                <p><strong>Sede:</strong> ${request.sede || 'No especificada'}</p>
+                <p><strong>Computadora:</strong> ${request.codigoComputadora || 'No especificada'}</p>
+                <p><strong>Salida:</strong> ${request.fechaSalida || 'No especificada'}</p>
+                <p><strong>Regreso:</strong> ${request.fechaRegreso || 'No especificada'}</p>
+                <p><strong>Solicitado:</strong> ${request.fechaSolicitud ? new Date(request.fechaSolicitud).toLocaleDateString() : 'Fecha no disponible'}</p>
             </div>
         </div>
     `).join('');
-    
-    // Añadir estilos para los estados si no existen
-    if (!document.getElementById('estado-styles')) {
-        const style = document.createElement('style');
-        style.id = 'estado-styles';
-        style.textContent = `
-            .estado-aprobado { color: #27ae60; font-weight: bold; }
-            .estado-rechazado { color: #e74c3c; font-weight: bold; }
-            .estado-pendiente { color: #f39c12; font-weight: bold; }
-        `;
-        document.head.appendChild(style);
-    }
 }
+
+function displayErrorMessage(message) {
+    const container = document.getElementById('requestsList');
+    container.innerHTML = `<p class="error-message">${message}</p>`;
+}
+
+// Función para ser llamada desde otros archivos cuando se crea una nueva solicitud
+window.refreshHistory = async function() {
+    await loadAllRequests();
+};
