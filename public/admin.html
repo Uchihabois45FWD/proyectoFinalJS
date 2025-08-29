@@ -10,15 +10,19 @@
     <div class="dashboard-container">
         <div class="dashboard-header">
             <h1>Panel de Administración</h1>
-            <div class="">
+            <div class="button-group">
                 <button id="historyBtn" class="button-54">Ver Historial</button>
                 <button id="logoutBtn" class="button-54" role="button">Cerrar Sesión</button>
-                
             </div>
         </div>
 
-        <h2>Solicitudes Pendientes</h2>
+        <!-- Contenedor tipo panel para el título -->
+        <div class="panel-box">
+            <h2>Solicitudes Pendientes</h2>
+        </div>
+
         <div id="pendingRequests" class="requests-list">
+            <!-- Aquí se mostrarán las solicitudes -->
         </div>
 
         <div id="message" class="success-message"></div>
