@@ -25,10 +25,9 @@ function logout() {
     sessionStorage.removeItem('currentUser');
     window.location.href = 'index.html';
 }
-
 export const auth = {
-    login: async (username, password) => { // <-- Añadir async aquí
-        const user = await validateCredentials(username, password); // <-- Añadir await aquí
+    login: async (username, password) => {
+        const user = await validateCredentials(username, password);
         
         if (!user) {
             throw new Error('Credenciales incorrectas');
