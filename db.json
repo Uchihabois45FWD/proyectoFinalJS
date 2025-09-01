@@ -22,26 +22,12 @@
       "id": "3",
       "username": "estudiante2",
       "password": "estudiante123",
-      "name": "Estudiante Dos",
+      "name": "Adrian Campos Cisneros",
       "email": "estudiante2@escuela.com",
       "role": "student"
     }
   ],
-  "requests": [
-    {
-      "id": "6450",
-      "sede": "Sede La Capri",
-      "fechaSalida": "2025-09-18",
-      "fechaRegreso": "2025-09-26",
-      "codigoComputadora": "PC-001",
-      "aceptoCondiciones": true,
-      "firma": "",
-      "userId": "2",
-      "userName": "Leon",
-      "estado": "aprobado",
-      "fechaSolicitud": "2025-09-01T16:39:33.026Z"
-    }
-  ],
+  "requests": [],
   "sedes": [
     {
       "id": "1",
