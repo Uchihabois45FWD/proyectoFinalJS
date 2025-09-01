@@ -1,35 +1,13 @@
-// Maneja usuarios, sesión, autenticación y redirección según el rol.
-// Datos de usuarios predefinidos
-const users = [
-    {
-        id: 1,
-        username: 'admin',
-        password: 'admin123',
-        name: 'Administrador Principal',
-        email: 'admin@escuela.com',
-        role: 'admin'
-    },
-    {
-        id: 2,
-        username: 'estudiante1',
-        password: 'estudiante123',
-        name: 'Juan Pérez',
-        email: 'juan@escuela.com',
-        role: 'student'
-    },
-    {
-        id: 3,
-        username: 'estudiante2',
-        password: 'estudiante123',
-        name: 'María García',
-        email: 'maria@escuela.com',
-        role: 'student'
+import { usersAPI } from '../services/servicesUsers.js';
+// Función para validar credenciales usando la API
+async function validateCredentials(username, password) {
+    try {
+        const users = await usersAPI.getAll();
+        return users.find(user => user.username === username && user.password === password);
+    } catch (error) {
+        console.error('Error validating credentials:', error);
+        return null;
     }
-];
-
-// Función para validar credenciales
-function validateCredentials(username, password) {
-    return users.find(user => user.username === username && user.password === password);
 }
 
 // Función para guardar sesión de usuario
@@ -48,10 +26,9 @@ function logout() {
     window.location.href = 'index.html';
 }
 
-// Exportar funciones
 export const auth = {
-    login: (username, password) => {
-        const user = validateCredentials(username, password);
+    login: async (username, password) => { // <-- Añadir async aquí
+        const user = await validateCredentials(username, password); // <-- Añadir await aquí
         
         if (!user) {
             throw new Error('Credenciales incorrectas');
@@ -63,6 +40,7 @@ export const auth = {
         
         return userWithoutPassword;
     },
+
     
     logout,
     

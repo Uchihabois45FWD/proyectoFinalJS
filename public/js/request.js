@@ -60,19 +60,3 @@ export const requests = {
         }
     }
 };
-
-export const searchRequests = async (searchTerm) => {
-    try {
-        const requests = await requestsAPI.getAll();
-        return requests.filter(request => 
-            request.userName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            request.codigoComputadora.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            request.estado.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            request.fechaSalida.includes(searchTerm) ||
-            request.fechaRegreso.includes(searchTerm)
-        );
-    } catch (error) {
-        console.error('Error buscando solicitudes:', error);
-        return [];
-    }
-};

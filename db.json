@@ -11,11 +11,20 @@
     {
       "id": "2",
       "username": "estudiante1",
-      "name": "Leon",
+      "password": "estudiante123",
+      "name": "Alejandro",
       "email": "juan@escuela.com",
       "role": "student",
       "timestamp": 1756737117911,
       "expiresAt": 1756738917911
+    },
+    {
+      "id": "3",
+      "username": "estudiante2",
+      "password": "estudiante123",
+      "name": "Estudiante Dos",
+      "email": "estudiante2@escuela.com",
+      "role": "student"
     }
   ],
   "requests": [
