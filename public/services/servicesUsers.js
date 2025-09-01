@@ -1,3 +1,4 @@
+// Servicios API para usuarios, solicitudes y sedes, con búsqueda y manejo de errores.  
 const API_BASE = 'http://localhost:3001';
 
 // Función genérica para hacer peticiones HTTP

@@ -1,3 +1,4 @@
+// Maneja usuarios, sesión, autenticación y redirección según el rol.
 // Datos de usuarios predefinidos
 const users = [
     {

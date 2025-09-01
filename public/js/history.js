@@ -1,3 +1,4 @@
+// Gestiona el historial de solicitudes: ver, buscar, eliminar y mostrar mensajes.  
 import { auth } from '../js/auth.js';
 import { requests } from '../js/request.js';
 import { searchRequests } from '../js/request.js';

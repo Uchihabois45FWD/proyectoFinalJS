@@ -1,3 +1,4 @@
+// Controla el login: autenticación, redirección y mensajes de error.  
 import { auth } from './auth.js';
 
 // Configuración inicial

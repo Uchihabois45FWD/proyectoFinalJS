@@ -20,6 +20,10 @@ document.addEventListener('DOMContentLoaded', async function() {
     });
 });
 
+// Carga las solicitudes pendientes y las muestra en pantalla.
+// Si no hay, muestra un mensaje. Si hay, genera el HTML con los datos
+// y botones para aprobar o rechazar. Maneja errores en consola.
+
 async function loadPendingRequests() {
     try {
         const pendingRequests = await requests.getPendingRequests();
@@ -53,6 +57,7 @@ async function loadPendingRequests() {
 }
 
 // Funciones globales para los botones
+// Estas funciones permiten aprobar o rechazar solicitudes y mostrar mensajes de éxito o error al usuario.
 window.approveRequest = async function(id) {
     try {
         await requests.approveRequest(id);

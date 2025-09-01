@@ -1,3 +1,4 @@
+// Gestiona el dashboard del estudiante: solicitudes, perfil y mensajes.  
 import { auth } from '../js/auth.js';
 import { requests } from '../js/request.js';
 import { usersAPI } from '../services/servicesUsers.js';

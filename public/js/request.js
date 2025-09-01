@@ -1,3 +1,4 @@
+// Gestiona solicitudes: crear, listar, actualizar, eliminar, buscar y obtener sedes.  
 import { requestsAPI, sedesAPI } from '../services/servicesUsers.js';
 import { auth } from '../js/auth.js';
 

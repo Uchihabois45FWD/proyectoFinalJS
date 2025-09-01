@@ -1,3 +1,4 @@
+// Servidor Express que sirve páginas estáticas y rutas principales en el puerto 3000.  
 const express = require('express');
 const path = require('path');
 
