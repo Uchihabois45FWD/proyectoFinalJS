@@ -1,30 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
- <meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <title>Historial</title>
- <link rel="stylesheet" href="/estilos/historial.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historial de Solicitudes</title>
+    <link rel="stylesheet" href="./estilos/historial.css">
 </head>
 <body>
     <div class="dashboard-container">
         <div class="dashboard-header">
             <h1>Historial de Solicitudes</h1>
             <div class="button-group2">
-                <button id="adminBtn" class="btn btn-primary button-85">Panel Admin</button>
+                <button id="adminBtn" class="btn btn-primary button-85" style="display: none;">Panel Admin</button>
                 <button id="logoutBtn" class="btn btn-danger button-85">Cerrar Sesión</button>
             </div>
         </div>
 
         <div class="search-box">
-            <input type="text" id="searchInput" placeholder="Buscar por nombre, código o estado...">
+            <input type="text" id="searchInput" placeholder="Buscar por nombre, código o estado..." aria-label="Buscar solicitudes">
         </div>
 
         <div id="requestsList" class="requests-list">
-            <!-- Las solicitudes se cargarán aquí -->
+            <div class="loading-spinner">Cargando solicitudes...</div>
         </div>
     </div>
 
-    <script type="module" src="/js/history.js"></script>
+    <script type="module" src="./js/history.js"></script>
 </body>
 </html>
