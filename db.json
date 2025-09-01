@@ -11,14 +11,28 @@
     {
       "id": "2",
       "username": "estudiante1",
-      "name": "pancho alniño",
+      "name": "Leon",
       "email": "juan@escuela.com",
       "role": "student",
       "timestamp": 1756737117911,
       "expiresAt": 1756738917911
     }
   ],
-  "requests": [],
+  "requests": [
+    {
+      "id": "6450",
+      "sede": "Sede La Capri",
+      "fechaSalida": "2025-09-18",
+      "fechaRegreso": "2025-09-26",
+      "codigoComputadora": "PC-001",
+      "aceptoCondiciones": true,
+      "firma": "",
+      "userId": "2",
+      "userName": "Leon",
+      "estado": "aprobado",
+      "fechaSolicitud": "2025-09-01T16:39:33.026Z"
+    }
+  ],
   "sedes": [
     {
       "id": "1",
